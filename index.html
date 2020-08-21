@@ -23,6 +23,8 @@
 
         </div>
     </div>
+    <h3>Game info</h3>
+    <p id="game-info"></p>
     <script id="template" type="x-tmpl-mustache">
         {{ #grid }}
             <div class="item"><button type="button" value="{{.}}" onclick="gameController.playerMove(this.value)">{{.}}</button></div>

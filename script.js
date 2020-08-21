@@ -3,7 +3,14 @@ let gameController = (function() {
     players = [];
     let turn = 0;
     function startGame(){
-        gameBoard.startingTemplate();
+
+        if (players.length > 1){
+            gameBoard.startingTemplate();
+            printTurnInfo(players[0].getName())
+        }
+        else {
+            alert("need to add players before playing")
+        }
     }
 
     function createPlayer(name, symbol){
@@ -29,13 +36,36 @@ let gameController = (function() {
     function playerMove(value){
 
         if (turn % 2 == 0){
-            players[1].makeMove(value);
+            if (value == players[0].getSymbol() || value == players[1].getSymbol()) {
+                alert("this spot is already taken");
+            }
+            else{
+                
+                players[1].makeMove(value);
+                printTurnInfo(players[0].getName());
+                turn++;
+            }
+
         }
         else{
-            players[0].makeMove(value);
+
+            if (value == players[0].getSymbol() || value == players[1].getSymbol()) {
+                alert("this spot is already taken");
+            }
+            else{
+
+                players[0].makeMove(value);
+                printTurnInfo(players[1].getName());
+                turn++;
+            }
         }
-        turn++;
     }
+
+    function printTurnInfo(name){
+        let playerText = document.getElementById("game-info");
+        playerText.innerHTML = `its your turn ${name}`;
+    }
+    
 
     return{
         startGame: startGame,
@@ -81,12 +111,16 @@ const player = (name, mark, gender) => {
     const getName = () => {
         return name
     }
+    const getSymbol = () => {
+        return mark;
+    }
     const makeMove = (value) => {
         gameBoard.mark(mark, value);
     }
 
     return{
         getName: getName,
+        getSymbol: getSymbol,
         makeMove: makeMove
     };
 };
