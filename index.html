@@ -7,7 +7,17 @@
     <title>Document</title>
 </head>
 <body>
-    <button id="b">START A NEW GAME</button>
+    <form >
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name">
+        <label for="symbol"></label>
+        <input type="text" name="symbol", id="symbol">
+        <button type="button" id="create-player" onclick="gameController.createPlayer(document.getElementById('name').value, document.getElementById('symbol').value)">create player</button>
+    </form>
+    <div id="players">
+        
+    </div>
+    <button onclick="gameController.startGame()">START A NEW GAME</button>
     <div id="contents" class="contents">
         <div id="target">
 
@@ -15,10 +25,11 @@
     </div>
     <script id="template" type="x-tmpl-mustache">
         {{ #grid }}
-            <div class="item"><button type="button" onClick="buttonClicked()">{{.}}</button></div>
+            <div class="item"><button type="button" value="{{.}}" onclick="gameController.playerMove(this.value)">{{.}}</button></div>
         {{ /grid }}
     </script>
 
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
     <script src="https://unpkg.com/mustache@latest"></script>
     <script src="script.js"></script>
   </body>
